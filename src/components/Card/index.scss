@@ -1,0 +1,21 @@
+@import "../../scss/variables";
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray;
+  border-radius: $border-radius;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+
+  .card-title {
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  .card-value {
+    font-weight: 700;
+    font-size: 45px;
+  }
+}

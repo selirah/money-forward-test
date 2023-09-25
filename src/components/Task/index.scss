@@ -1,0 +1,27 @@
+@import "../../scss/variables";
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    border: 1px solid $gray;
+    padding: 8px;
+  }
+
+  thead th {
+    width: 25%;
+  }
+
+  .delete {
+    text-align: center;
+    button {
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      color: $error;
+      font-size: $font-size;
+    }
+  }
+}

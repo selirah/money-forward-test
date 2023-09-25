@@ -1,0 +1,101 @@
+@import "./scss/variables";
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  background-color: $white;
+  color: $black;
+}
+
+.tasks-container {
+  display: block;
+  border: 1px solid $gray;
+  margin: auto;
+  width: 50%;
+  margin-top: 10vh;
+  padding: 24px;
+
+  .card-display {
+    display: flex;
+    margin-bottom: 100px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .task-form {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 100px;
+
+    .form-input {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-right: 12px;
+      position: relative;
+
+      input {
+        padding: 12px;
+        border: 1px solid $gray;
+        margin: 10px 0;
+        box-sizing: border-box;
+        border-radius: $border-radius;
+      }
+
+      label {
+        font-weight: 700;
+        font-size: 12px;
+        position: absolute;
+        left: 0;
+        top: -10px;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      border: 1px solid $info;
+      background-color: $info;
+      border-radius: $border-radius;
+      color: $white;
+      font-size: $font-size;
+      transition: 0.5s ease-in-out;
+
+      &:hover {
+        background-color: $black;
+        border: 1px solid $black;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  #root {
+    padding: 24px;
+  }
+  .tasks-container {
+    width: 100%;
+    box-sizing: border-box;
+
+    h4 {
+      margin: 0;
+    }
+
+    .card-display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .task-form {
+      display: flex;
+      flex-direction: column;
+
+      .form-input {
+        margin-right: 0;
+        position: relative;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

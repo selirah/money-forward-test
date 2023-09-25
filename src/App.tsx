@@ -1,35 +1,107 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCallback, useState } from "react";
+import "./App.scss";
+import { TaskT } from "./types/Task";
+import Card from "./components/Card";
+import TaskList from "./components/Task/TaskList";
+import Modal from "./components/Modal";
+import { formatValue, generateId, onValidateFields } from "./utils/helpers";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState<TaskT[]>([]);
+  const [title, setTitle] = useState("");
+  const [time, setTime] = useState("");
+  const [message, setMessage] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [task, setTask] = useState<TaskT | null>(null);
+
+  const totalHours = tasks.reduce((time, task) => time + task.time, 0);
+
+  const onSubmitTask = () => {
+    setMessage("");
+    const validate = onValidateFields(title, time);
+    if (typeof validate === "string") {
+      setOpenModal(true);
+      setMessage(validate);
+    } else {
+      const task: TaskT = {
+        id: generateId(),
+        time: parseInt(time),
+        title: title.trim()
+      };
+      setTasks((oldTasks) => [...oldTasks, task]);
+      setTitle("");
+      setTime("");
+    }
+  };
+
+  const onDeleteTask = (task: TaskT) => {
+    setTask(task);
+    setMessage("Are you sure you want to delete");
+    setOpenModal(true);
+  };
+
+  const confirmDeleteTask = useCallback(() => {
+    setOpenModal(false);
+    setMessage("");
+    setTasks((tasks) => tasks.filter((t) => t.id !== task?.id));
+  }, [task]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="tasks-container">
+        <h2>Task Management App</h2>
+        <div className="card-display">
+          <Card
+            title="Total Tasks"
+            value={formatValue(tasks.length.toString())}
+          />
+          <Card
+            title="Total Days"
+            value={formatValue(Math.round(totalHours / 8).toString())}
+          />
+          <Card
+            title="Total Hours"
+            value={formatValue(totalHours.toString())}
+          />
+        </div>
+        <div className="task-form">
+          <div className="form-input">
+            <label htmlFor="title">Task title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              id="title"
+              placeholder="Enter title of task..."
+            />
+          </div>
+          <div className="form-input">
+            <label htmlFor="time">Time Required (in Hrs)</label>
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              id="time"
+              placeholder="Enter time required in hrs.."
+            />
+          </div>
+          <button onClick={onSubmitTask}>Add</button>
+        </div>
+        <h4>Todo list</h4>
+        <div className="task-list">
+          <TaskList onDelete={onDeleteTask} tasks={tasks} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {openModal && (
+        <Modal
+          content={message}
+          onOpenModal={setOpenModal}
+          onOk={confirmDeleteTask}
+          okBtnText="OK"
+        />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

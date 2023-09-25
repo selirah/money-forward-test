@@ -1,0 +1,78 @@
+@import "../../scss/variables";
+
+.modal-bg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: $black, $alpha: 0.75);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-container {
+    width: 500px;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $white;
+    box-shadow: rgba($color: $black, $alpha: 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+
+    .title {
+      display: inline-block;
+      border-bottom: 1px solid $gray;
+      margin-bottom: 20px;
+      h4 {
+        margin: 10px 0px 10px 0px;
+      }
+    }
+
+    .close-button {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        background-color: transparent;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+
+    .body {
+      flex: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        color: rgba($color: $black, $alpha: 0.65);
+      }
+    }
+
+    .footer {
+      flex: 20%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: end;
+      margin-top: 20px;
+      border-top: 1px solid $gray;
+      padding-top: 20px;
+
+      button {
+        width: 100px;
+        height: 35px;
+        margin: 2px;
+        border: none;
+        background-color: $info;
+        border-radius: 4px;
+        color: $white;
+      }
+
+      #cancel {
+        background-color: $error;
+      }
+    }
+  }
+}
