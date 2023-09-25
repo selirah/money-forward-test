@@ -12,10 +12,12 @@
   .card-title {
     font-weight: 400;
     font-size: 18px;
+    color: $text-color;
   }
 
   .card-value {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 45px;
+    color: $black;
   }
 }

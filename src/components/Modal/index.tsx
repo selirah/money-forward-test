@@ -2,23 +2,23 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 
 type Props = {
-  title?: string;
+  title: string;
   content: string;
   onOpenModal: (value: boolean) => void;
-  onOk?: () => void;
-  okBtnText?: string;
+  onOk?: () => void | null;
+  isDelete: boolean;
 };
 
 const Modal: React.FC<Props> = (props) => {
-  const { content, title, onOpenModal, onOk, okBtnText } = props;
+  const { content, title, onOpenModal, onOk, isDelete } = props;
   return ReactDOM.createPortal(
     <div className="modal-bg">
       <div className="modal-container">
-        <div className="close-button">
+        <div className="modal-header">
+          <div className="title">
+            <h4>{title}</h4>
+          </div>
           <button onClick={() => onOpenModal(false)}>X</button>
-        </div>
-        <div className="title">
-          <h4>{title && ""}</h4>
         </div>
         <div className="body">
           <p>{content}</p>
@@ -27,7 +27,7 @@ const Modal: React.FC<Props> = (props) => {
           <button onClick={() => onOpenModal(false)} id="cancel">
             Cancel
           </button>
-          {onOk && <button onClick={onOk}>{okBtnText && "OK"}</button>}
+          {isDelete && <button onClick={onOk}>Ok</button>}
         </div>
       </div>
     </div>,

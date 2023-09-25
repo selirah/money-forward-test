@@ -13,6 +13,8 @@ function App() {
   const [message, setMessage] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [task, setTask] = useState<TaskT | null>(null);
+  const [modalTitle, setModalTitle] = useState("");
+  const [isDelete, setDelete] = useState(false);
 
   const totalHours = tasks.reduce((time, task) => time + task.time, 0);
 
@@ -22,6 +24,7 @@ function App() {
     if (typeof validate === "string") {
       setOpenModal(true);
       setMessage(validate);
+      setModalTitle("Error");
     } else {
       const task: TaskT = {
         id: generateId(),
@@ -36,7 +39,9 @@ function App() {
 
   const onDeleteTask = (task: TaskT) => {
     setTask(task);
-    setMessage("Are you sure you want to delete");
+    setDelete(true);
+    setModalTitle("Delete Confirmaion");
+    setMessage(`Are you sure you want to delete task '${task.title}'`);
     setOpenModal(true);
   };
 
@@ -44,12 +49,13 @@ function App() {
     setOpenModal(false);
     setMessage("");
     setTasks((tasks) => tasks.filter((t) => t.id !== task?.id));
+    setDelete(false);
   }, [task]);
 
   return (
     <>
       <div className="tasks-container">
-        <h2>Task Management App</h2>
+        <h4>Task Management App</h4>
         <div className="card-display">
           <Card
             title="Total Tasks"
@@ -94,10 +100,11 @@ function App() {
       </div>
       {openModal && (
         <Modal
+          title={modalTitle}
           content={message}
           onOpenModal={setOpenModal}
           onOk={confirmDeleteTask}
-          okBtnText="OK"
+          isDelete={isDelete}
         />
       )}
     </>

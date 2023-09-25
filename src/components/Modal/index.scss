@@ -19,23 +19,25 @@
     flex-direction: column;
     padding: 25px;
 
-    .title {
-      display: inline-block;
-      border-bottom: 1px solid $gray;
-      margin-bottom: 20px;
-      h4 {
-        margin: 10px 0px 10px 0px;
-      }
-    }
-
-    .close-button {
+    .modal-header {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $gray;
+      margin-bottom: 16px;
+
+      .title {
+        display: inline-block;
+        h4 {
+          color: $purple;
+          margin: 10px 0px 10px 0px;
+        }
+      }
 
       button {
         background-color: transparent;
         border: none;
-        font-size: 18px;
+        font-size: 16px;
         cursor: pointer;
       }
     }
@@ -57,8 +59,8 @@
       justify-content: flex-end;
       align-items: end;
       margin-top: 20px;
-      border-top: 1px solid $gray;
       padding-top: 20px;
+      border-top: 1px solid $gray;
 
       button {
         width: 100px;
